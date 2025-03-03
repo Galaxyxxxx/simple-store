@@ -3,15 +3,21 @@ import {Card, CardContent, CardDescription, CardTitle, CardHeader, CardFooter} f
 import { Button } from "@/components/ui/button"
 import { Plus, Minus } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: Store.Product;
-  howManySelected?: number;
 }
 
-
 export default function ProductCard({product}: ProductCardProps) {
-
+  const [productamount, setProductAmount] = useState<number>(0);
+  const PAmount = (): void => {
+    setProductAmount(productamount + 1);
+  }
+  const MAmount = (): void => {
+    if (productamount > 0)
+    setProductAmount(productamount - 1);
+  }
   return <Card>
     <CardHeader className="flex-row place-content-between">
       <div className="flex-col">
@@ -19,9 +25,9 @@ export default function ProductCard({product}: ProductCardProps) {
         <CardDescription>Category: {product.category}</CardDescription>
       </div>
       <div className="flex-row">
-        <Button><Plus /></Button>
-        
-        <Button><Minus /></Button>
+        <Button onClick={PAmount} className="bg-white hover:bg-white"><Plus className="text-black"/></Button>
+        {productamount}
+        <Button onClick={MAmount} className="bg-white hover:bg-white"><Minus className="text-black"/></Button>
       </div>
     </CardHeader>
     <CardContent className="flex stretch-items">
