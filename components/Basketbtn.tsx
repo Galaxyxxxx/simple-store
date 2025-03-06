@@ -6,8 +6,8 @@ interface BasketbtnProps {
 
 export default function Basketbtn({}: BasketbtnProps){
     return (
-        <div className="flex">
-            <a href="#"><ShoppingCart className="w-auto h-auto" /></a>
+        <div className="flex w-full h-full">
+            <a href="#" className='w-full h-full'><ShoppingCart className="w-full h-full" /></a>
         </div>
     )
 }
