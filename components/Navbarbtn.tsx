@@ -8,8 +8,8 @@ interface NavbarbtnProps {
 
 export default function Navbarbtn({ isImage, text, link }: NavbarbtnProps) {
     return (
-        <div className="flex-row">
-            <a href={link}>{isImage ? <Image src={text} alt="Logo" width={50} height={50} />: text}</a>
+        <div className="flex-row text-6xl relative">
+            <a href={link}>{isImage ? <Image src={text} alt="Logo" layout="fill" className="relative h-132 min-w-full"/>: text}</a>
         </div>
     )
 }

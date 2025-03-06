@@ -9,8 +9,8 @@ import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <div className="flex-auto">
-      <div className="flex-row justify-center">
+    <div className="flex-auto h-screen">
+      <div className="flex-row justify-center h-1/12">
         <Navbar />
       </div>
       <div className="flex-col">
