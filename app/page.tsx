@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Store from "@/types/store";
+import Footer from "@/components/Footer";
 import products from "@/app/ProductDatabase";
 import ProductCard from "@/components/ProductCard";
 import React, { useState } from "react";
@@ -15,6 +16,9 @@ export default function Home() {
       </div>
       <div className="flex-col">
         {products.map((element, index) => {return (<div className="flex-initial"> <ProductCard key={index} product={element}/> </div>) })}
+      </div>
+      <div className="h-1/13">
+        <Footer />
       </div>
     </div>
   );
