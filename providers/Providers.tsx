@@ -16,7 +16,7 @@ export default function Providers({ children }: ProvidersProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <GlobalProductsProvider value={products}>
-        <CartContentProvider>
+        <CartContentProvider value={[]}>
         {children}
         </CartContentProvider>
       </GlobalProductsProvider>

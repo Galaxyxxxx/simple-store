@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, ReactNode } from "react";
 import Store from "@/types/store";
 
 
@@ -6,7 +6,7 @@ const CartContentContext = createContext<Store.CartItem[]>([]);
 
 export default CartContentContext;
 
-export const CartContentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const CartContentProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [cartItems, setCartItems] = useState<Store.CartItem[]>([]);
 
     return (
