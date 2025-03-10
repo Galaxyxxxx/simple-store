@@ -11,8 +11,10 @@ declare namespace Store {
         count: number
     }
   }
-
-  
+  interface CartItem {
+    id: number,
+    quantity: number,
+  }
 }
 
 export default Store;
