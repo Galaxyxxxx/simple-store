@@ -4,12 +4,12 @@ import Sidebarbtn from "./Sidebarbtn"
 import { Input } from "@/components/ui/input"
 import { Search } from "lucide-react"
 
-interface Navbardivrodivs {
+interface NavbarProps {
     
 }
 
 
-export default function Navbar({}: Navbardivrodivs) {
+export default function Navbar({}: NavbarProps) {
     return <div className="flex justify-between h-full">
         <div className="size-full w-1/26"> <Navbarbtn isImage={true} text="/logo.jpg" link="" /> </div>
         <div className="mr-25 w-1/29"><Sidebarbtn /></div>

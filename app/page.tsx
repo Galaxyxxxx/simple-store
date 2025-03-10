@@ -3,17 +3,19 @@ import Image from "next/image";
 import Store from "@/types/store";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
-import React, { useState } from "react";
+import { useContext, useState } from "react";
 import Navbar from "@/components/Navbar";
 import useProducts from "@/data-hooks/useProducts";
+import GlobalProductsContext from "@/contexts/GlobalItemContext";
 
 
 export default function Home() {
-  const {isPending, products} = useProducts();
+  const products = useContext(GlobalProductsContext);
+  //const {products, isPending} = useProducts();
 
   return (
     <div className="flex-auto h-screen">
-      <div className="flex-row justify-center h-1/16 sticky top-0 bg-white outline">
+      <div className="flex-row justify-center h-1/13 w-full fixed top-0 bg-white outline">
         <Navbar />
       </div>
       <div className="flex-col">
