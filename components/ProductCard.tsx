@@ -4,21 +4,44 @@ import {Card, CardContent, CardDescription, CardTitle, CardHeader, CardFooter} f
 import { Button } from "@/components/ui/button"
 import { Plus, Minus } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { CartContentContext} from "@/contexts/CartContentContext";
 
 interface ProductCardProps {
   product: Store.Product;
 }
 
 export default function ProductCard({product}: ProductCardProps) {
-  const [productamount, setProductAmount] = useState<number>(0);
+  const [productamount, setProductAmount] = useState<number>(1);
+  const { content, setcontent } = useContext(CartContentContext);
   const PAmount = (): void => {
     setProductAmount(productamount + 1);
   }
   const MAmount = (): void => {
-    if (productamount > 0)
+    if (productamount > 1)
     setProductAmount(productamount - 1);
   }
+  const handleClick = () => {
+    if (content === undefined) {
+      console.log("1");
+    } else {
+      const existingProduct = content.find(p => p.id === product.id);
+      if (productamount > 0) {
+        if (existingProduct) {
+          const updatedContent = content.map(p =>
+            p.id === product.id ? { ...p, quantity: p.quantity + productamount } : p
+          );
+          setcontent(updatedContent);
+        } else {
+          setcontent([...content, { id: product.id, quantity: productamount }]);
+          console.log(content);
+        }
+      } else {
+        console.log("0");
+        console.log(content);
+      }
+    }
+  };
   return <Card>
     <CardHeader className="flex-row place-content-between">
       <div className="flex-col">
@@ -42,7 +65,7 @@ export default function ProductCard({product}: ProductCardProps) {
       </div>
       <div className="grid justify-items-end">
         <p>Price: ${product.price}</p>
-        <Button>Add to Cart</Button>
+        <Button onClick={handleClick}>Add to Cart</Button>
       </div>
     </CardFooter>
   </Card>

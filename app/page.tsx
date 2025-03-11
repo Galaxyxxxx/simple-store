@@ -7,12 +7,11 @@ import ProductCard from "@/components/ProductCard";
 import { useContext, useState } from "react";
 import Navbar from "@/components/Navbar";
 import useProducts from "@/data-hooks/useProducts";
-import GlobalProductsContext from "@/contexts/GlobalItemContext";
+import {GlobalProductsContext} from "@/contexts/GlobalItemContext";
 
 
 export default function Home() {
-  const products = useContext(GlobalProductsContext);
-  //const {products, isPending} = useProducts();
+  const { products } = useContext(GlobalProductsContext);
 
   return (
     <div className="flex-auto h-screen">
@@ -20,7 +19,11 @@ export default function Home() {
         <Navbar />
       </div>
       <div className="flex-col pt-20">
-        {products?.map((element, index) => {return (<div className="flex-initial"> <ProductCard key={index} product={element}/> </div>) })}
+        {products && products.map((element: Store.Product, index: number) => (
+          <div key={index} className="flex-initial">
+            <ProductCard product={element} />
+          </div>
+        ))}
       </div>
       <div className="h-1/13">
         <Footer />

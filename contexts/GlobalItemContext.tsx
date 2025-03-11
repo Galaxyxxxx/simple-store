@@ -1,18 +1,41 @@
 "use client"
 
-import React, { createContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useContext } from "react";
 import Store from "@/types/store";
+import useProducts from "@/data-hooks/useProducts";
 
-const GlobalProductsContext = createContext<Store.Product[] | undefined>(undefined);
 
-export default GlobalProductsContext;
+export type GlobalProductsContextType = {
+  products?: Store.Product[]; 
+};
 
-export const GlobalProductsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [products, setProducts] = useState<Store.Product[] | undefined>(undefined);
+export const GlobalProductsContext = createContext<GlobalProductsContextType>({
+  products: undefined
+});
+
+export const useGlobalProductsContext = () => {
+  const context = useContext(GlobalProductsContext);
+
+  if (context === undefined) {
+    throw new Error("wrong usage of context");
+  }
+
+  return context;
+};
+
+export const GlobalProductsContextProvider: React.FC<{
+  children: React.ReactNode;
+}> = ({ children }) => {
+
+  const {products} = useProducts();
+
   return (
-    <GlobalProductsContext.Provider value={products}>
+    <GlobalProductsContext.Provider
+      value={{
+        products
+      }}
+    >
       {children}
     </GlobalProductsContext.Provider>
   );
 };
-

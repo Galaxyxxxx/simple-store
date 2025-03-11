@@ -72,6 +72,39 @@ const products: Store.Product[] = [
             rate: 8.0,
             count: 1000
         },
-    }];
+    },{
+        id: 7,
+        title: "Samsung Headphones WH1000XM3",
+        price: 55,
+        description: "NZostaw telefon w kieszeni i wygodnie steruj słuchawkami za pomocą prostych gestów. Nawet przy szybkim przesunięciu, możesz mieć pewność, że Galaxy Buds3 pozostaną bezpiecznie w Twoich uszach.",
+        category: "Electronics",
+        image: "/product4.jpg",
+        rating: {
+            rate: 8.0,
+            count: 1000
+        },
+    },{
+        id: 8,
+        title: "Samsung Headphones WH1000XM3",
+        price: 55,
+        description: "NZostaw telefon w kieszeni i wygodnie steruj słuchawkami za pomocą prostych gestów. Nawet przy szybkim przesunięciu, możesz mieć pewność, że Galaxy Buds3 pozostaną bezpiecznie w Twoich uszach.",
+        category: "Electronics",
+        image: "/product4.jpg",
+        rating: {
+            rate: 8.0,
+            count: 1000
+        },
+    },{
+        id: 9,
+        title: "Samsung Headphones WH1000XM3",
+        price: 55,
+        description: "NZostaw telefon w kieszeni i wygodnie steruj słuchawkami za pomocą prostych gestów. Nawet przy szybkim przesunięciu, możesz mieć pewność, że Galaxy Buds3 pozostaną bezpiecznie w Twoich uszach.",
+        category: "Electronics",
+        image: "/product4.jpg",
+        rating: {
+            rate: 8.0,
+            count: 1000
+        },
+    },];
 
 export default products;

@@ -1,7 +1,7 @@
 'use client'
 
-import GlobalProductsProvider from '@/contexts/GlobalItemContext'
-import CartContentProvider from '@/contexts/CartContentContext'
+import {GlobalProductsContextProvider} from '@/contexts/GlobalItemContext'
+import {CartContentContextProvider} from '@/contexts/CartContentContext'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactNode, useState } from 'react'
 import products from '@/app/ProductDatabase'
@@ -17,11 +17,11 @@ export default function Providers({ children }: ProvidersProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <GlobalProductsProvider value={products}>
-        <CartContentProvider value={[]}>
+      <GlobalProductsContextProvider>
+        <CartContentContextProvider>
         {children}
-        </CartContentProvider>
-      </GlobalProductsProvider>
+        </CartContentContextProvider>
+      </GlobalProductsContextProvider>
     </QueryClientProvider>
   )
 }
