@@ -2,9 +2,8 @@
 import Store from "@/types/store";
 import {Card, CardContent, CardDescription, CardTitle, CardHeader, CardFooter} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, Trash2 } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
 
 interface ProductCardCartProps {
   product: Store.CartProduct;
@@ -30,10 +29,11 @@ export default function ProductCardCart({product, productamount, setProductAmoun
             </div>
       </div>
       <div className="flex-row">
+        <Trash2 className="justify-self-end mr-2" />
         <Button onClick={PAmount} className="bg-white hover:bg-white"><Plus className="text-black"/></Button>
         {productamount}
         <Button onClick={MAmount} className="bg-white hover:bg-white"><Minus className="text-black"/></Button>
-        <p className="justify-self-end pt-2">Price: ${product.price}</p>
+        <p className="justify-self-end pt-2 pr-2">Price: ${product.price}</p>
       </div>
     </CardHeader>
   </Card>

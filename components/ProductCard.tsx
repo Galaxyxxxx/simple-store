@@ -6,7 +6,7 @@ import { Plus, Minus } from "lucide-react";
 import Image from "next/image";
 import { useState, useContext } from "react";
 import { CartContentContext} from "@/contexts/CartContentContext";
-
+import { toast } from "sonner";
 interface ProductCardProps {
   product: Store.Product;
 }
@@ -41,7 +41,17 @@ export default function ProductCard({product}: ProductCardProps) {
         console.log(content);
       }
     }
+    sonner(product, productamount);
   };
+  const sonner = (product: Store.Product, productamount: Number) => {
+    toast(productamount + " Product/s added to cart!", 
+      { description: product.title + " was added to the cart!",
+        unstyled: true,
+        classNames: {
+          toast: 'bg-gray-500 rounded-md p-3'
+        }
+      });
+  }
   return <Card>
     <CardHeader className="flex-row place-content-between">
       <div className="flex-col">

@@ -33,7 +33,7 @@ export default function Basketbtn({}: BasketbtnProps){
 <div className="w-full h-full">
   <Drawer>
     <DrawerTrigger asChild className="w-full h-full">
-      <Button className='w-full h-full bg-white hover:bg-white p-1'><ShoppingCart className="h-full w-full text-black" /></Button>
+      <Button className='w-full h-full bg-white hover:bg-white p-1'><ShoppingCart className="h-full w-full text-black size-full" /></Button>
     </DrawerTrigger>
       <DrawerContent className='h-4/5'>
         <DrawerHeader>
@@ -43,7 +43,7 @@ export default function Basketbtn({}: BasketbtnProps){
             Summary:
         </DrawerHeader>
           <DrawerDescription className='pl-10 overflow-y-scroll '>
-            {displayitems == null ? "Your shopping cart is empty :(" : displayitems?.map((product) => <ProductCardCart key={product?.id} product={product} productamount={product.quantity}/>)}
+            {displayitems == null || displayitems.length == 0 ? <span>Your shopping cart is empty :/</span> : displayitems?.map((product) => <ProductCardCart key={product?.id} product={product} productamount={product.quantity}/>)}
           </DrawerDescription>
             <DrawerFooter className='h-1/5'>
               <Link href={'/cart'}>
