@@ -6,7 +6,7 @@ import { Plus, Minus } from "lucide-react";
 import Image from "next/image";
 import { useState, useContext } from "react";
 import { CartContentContext} from "@/contexts/CartContentContext";
-import { toast } from "sonner";
+import { toast } from "@/components/ui/sonner";
 interface ProductCardProps {
   product: Store.Product;
 }
