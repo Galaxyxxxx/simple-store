@@ -1,3 +1,4 @@
+"use client"
 import Store from "@/types/store";
 import {Card, CardContent, CardDescription, CardTitle, CardHeader, CardFooter} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"

@@ -5,6 +5,8 @@ import CartContentProvider from '@/contexts/CartContentContext'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactNode, useState } from 'react'
 import products from '@/app/ProductDatabase'
+import Store from '@/types/store'
+import useProducts from '@/data-hooks/useProducts'
 
 interface ProvidersProps {
     children: ReactNode 
