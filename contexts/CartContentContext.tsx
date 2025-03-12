@@ -1,18 +1,19 @@
 "use client"
 import { createContext, useState, ReactNode, useContext } from "react";
 import Store from "@/types/store";
+import useCardLocalStorage from "@/utils/CardLocalStorage";
 
 export type CartContentContextType = {
-    content?: Store.CartItem[]; 
-    setcontent: (value: Store.CartItem[]) => void;
+    selectedItems?: Store.CartItem; 
+    setSelectedItems: (value: Store.CartItem) => void;
   };
   
   export const CartContentContext = createContext<CartContentContextType>({
-    content: undefined,
-    setcontent: () => {}
+    selectedItems: undefined,
+    setSelectedItems: () => {}
   });
   
-  export const useGlobalProductsContext = () => {
+  export const useCartContentContext = () => {
     const context = useContext(CartContentContext);
   
     if (context === undefined) {
@@ -25,14 +26,14 @@ export type CartContentContextType = {
   export const CartContentContextProvider: React.FC<{
     children: React.ReactNode;
   }> = ({ children }) => {
-  
-    const [content, setcontent] = useState<Store.CartItem[]>([]);
+
+    const {selectedProductsFromLocalStorage, writeSelectedProductsToLocalStorage} = useCardLocalStorage()
   
     return (
       <CartContentContext.Provider
         value={{
-          content,
-          setcontent
+          selectedItems: selectedProductsFromLocalStorage,
+          setSelectedItems: writeSelectedProductsToLocalStorage
         }}
       >
         {children}

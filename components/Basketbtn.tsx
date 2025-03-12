@@ -1,5 +1,5 @@
 "use client"
-import { ShoppingCart } from 'lucide-react';
+import { Key, ShoppingCart } from 'lucide-react';
 import { Drawer, 
 	DrawerContent, 
 	DrawerClose, 
@@ -16,6 +16,7 @@ import ProductCard from './ProductCard';
 import Link from 'next/link';
 import ProductCardCart from './ProductCardCart';
 import { CartContentContext} from "@/contexts/CartContentContext";
+import Store from '@/types/store';
 
 interface BasketbtnProps {
 
@@ -23,11 +24,18 @@ interface BasketbtnProps {
 
 export default function Basketbtn({}: BasketbtnProps){
     const { products } = useContext(GlobalProductsContext);
-  const { content, setcontent } = useContext(CartContentContext);
-  const displayitems = content?.map((product) => {
-    const item = products?.find((p) => p.id === product.id); 
-    return item ? { ...item, quantity: product.quantity } : null;
-  });
+  const { selectedItems, setSelectedItems } = useContext(CartContentContext); // Don't name it content, at least add "card" to it
+  console.log("SELECTED ITEMS", selectedItems);
+  let selectedItemsForPresentation: Store.CardSelectedProduct[] = [];
+  if (selectedItems) {
+    selectedItemsForPresentation = Array.from(selectedItems.entries()).map(([key, cardItemDetails]) => {
+      return {
+        product: products?.find((p) => p.id === key),
+        quantity: cardItemDetails.quantity
+      }
+    })
+  }
+
 
     return (
 <div className="w-full h-full">
@@ -43,7 +51,7 @@ export default function Basketbtn({}: BasketbtnProps){
             Summary:
         </DrawerHeader>
           <DrawerDescription className='pl-10 overflow-y-scroll '>
-            {displayitems == null || displayitems.length == 0 ? <span>Your shopping cart is empty :/</span> : displayitems?.map((product) => <ProductCardCart key={product?.id} product={product} productamount={product.quantity}/>)}
+            {!selectedItemsForPresentation || selectedItemsForPresentation.length == 0 ? <span>Your shopping cart is empty :/</span> : selectedItemsForPresentation?.map((cardProduct) => <ProductCardCart key={cardProduct?.product?.id} product={cardProduct} productamount={cardProduct.quantity}/>)}
           </DrawerDescription>
             <DrawerFooter className='h-1/5'>
               <Link href={'/cart'}>
@@ -57,3 +65,11 @@ export default function Basketbtn({}: BasketbtnProps){
   </Drawer>
 </div>
 )};
+
+/*selectedItems?.map((selectedItem) => {
+    const cardProduct: Store.CardSelectedProduct = {
+      product: products?.find((p) => p.id === selectedItem()),
+      quantity: selectedItem.quantity,
+    }
+    return cardProduct 
+    */

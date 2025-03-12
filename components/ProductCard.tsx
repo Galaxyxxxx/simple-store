@@ -6,14 +6,14 @@ import { Plus, Minus } from "lucide-react";
 import Image from "next/image";
 import { useState, useContext } from "react";
 import { CartContentContext} from "@/contexts/CartContentContext";
-import { toast } from "@/components/ui/sonner";
+import { toast }  from "sonner";
 interface ProductCardProps {
   product: Store.Product;
 }
 
 export default function ProductCard({product}: ProductCardProps) {
   const [productamount, setProductAmount] = useState<number>(1);
-  const { content, setcontent } = useContext(CartContentContext);
+  const { selectedItems, setSelectedItems } = useContext(CartContentContext);
   const PAmount = (): void => {
     setProductAmount(productamount + 1);
   }
@@ -22,33 +22,36 @@ export default function ProductCard({product}: ProductCardProps) {
     setProductAmount(productamount - 1);
   }
   const handleClick = () => {
-    if (content === undefined) {
-      console.log("1");
+    if (selectedItems?.has(product.id)) {
+      const foundQuantity = selectedItems.get(product.id)?.quantity;
+        if(foundQuantity && foundQuantity !== undefined) {
+      const copyOfSelectedtems = structuredClone(selectedItems);
+      copyOfSelectedtems?.set(product.id, { quantity: foundQuantity + productamount });
+      setSelectedItems(copyOfSelectedtems);
+      console.log(selectedItems);}
+    } else if (!selectedItems?.has(product.id)) {
+      const copyOfSelectedtems = structuredClone(selectedItems) || new Map();
+      copyOfSelectedtems?.set(product.id, { quantity: productamount });
+      setSelectedItems(copyOfSelectedtems);
     } else {
-      const existingProduct = content.find(p => p.id === product.id);
-      if (productamount > 0) {
-        if (existingProduct) {
-          const updatedContent = content.map(p =>
-            p.id === product.id ? { ...p, quantity: p.quantity + productamount } : p
-          );
-          setcontent(updatedContent);
-        } else {
-          setcontent([...content, { id: product.id, quantity: productamount }]);
-          console.log(content);
-        }
-      } else {
-        console.log("0");
-        console.log(content);
-      }
+      toast("Error", 
+        { description: <div className="text-black"> {product.title} is already in your cart! </div>,
+          unstyled: true,
+          classNames: {
+            toast: 'bg-gray-500 rounded-md p-3 text-black',
+            description: 'text-black',
+          }
+        });
     }
     sonner(product, productamount);
   };
   const sonner = (product: Store.Product, productamount: Number) => {
     toast(productamount + " Product/s added to cart!", 
-      { description: product.title + " was added to the cart!",
+      { description: <div className="text-black"> {product.title} was added to the cart! </div>,
         unstyled: true,
         classNames: {
-          toast: 'bg-gray-500 rounded-md p-3'
+          toast: 'bg-gray-500 rounded-md p-3 text-black',
+          description: 'text-black',
         }
       });
   }
@@ -80,3 +83,4 @@ export default function ProductCard({product}: ProductCardProps) {
     </CardFooter>
   </Card>
 }
+
