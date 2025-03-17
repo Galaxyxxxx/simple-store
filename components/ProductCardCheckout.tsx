@@ -1,10 +1,7 @@
 "use client"
 import Store from "@/types/store";
-import {Card, CardContent, CardDescription, CardTitle, CardHeader, CardFooter} from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Plus, Minus } from "lucide-react";
+import {Card, CardDescription, CardTitle, CardHeader } from "@/components/ui/card"
 import Image from "next/image";
-import { useState } from "react";
 
 interface ProductCardCheckoutProps {
   product?: Store.CartProduct;

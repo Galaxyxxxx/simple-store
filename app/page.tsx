@@ -1,12 +1,9 @@
 "use client";
-import Image from "next/image";
-import Link from "next/link";
 import Store from "@/types/store";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { useContext, useState } from "react";
 import Navbar from "@/components/Navbar";
-import useProducts from "@/data-hooks/useProducts";
 import {GlobalProductsContext} from "@/contexts/GlobalItemContext";
 
 

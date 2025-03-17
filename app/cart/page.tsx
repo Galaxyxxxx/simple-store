@@ -1,12 +1,18 @@
 "use client"
-import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useContext } from "react";
 import { CartContentContext} from "@/contexts/CartContentContext";
 import { GlobalProductsContext} from "@/contexts/GlobalItemContext";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
+
+
 import ProductCardCheckout from "@/components/ProductCardCheckout";
 import Store from "@/types/store";
+
 
 export default function Cart() {
   const { products } = useContext(GlobalProductsContext);
@@ -28,12 +34,55 @@ export default function Cart() {
           <div className="h-11/13 w-full flex">
           <div className="w-1/2">
             <span className="text-4xl pl-13">Cart:</span>
-            <div className="pl-20 pt-3 overflow-y-scroll h-10/11">{selectedItemsForPresentation == null || selectedItemsForPresentation.length == 0 ? <span className="text-3xl ml-20 pt-20">Your shopping cart is empty :/</span> : selectedItemsForPresentation?.map((product) => <div><ProductCardCheckout product={product?.product} productamount={product?.quantity} /> </div>)}</div>
+            <div className="pl-20 pt-3 overflow-y-scroll h-10/11">{selectedItemsForPresentation == null || selectedItemsForPresentation.length == 0 ? 
+            <span className="text-3xl ml-20 pt-20">Your shopping cart is empty :/</span> : selectedItemsForPresentation?.map((product) => <div><ProductCardCheckout product={product?.product} productamount={product?.quantity} /> </div>)}</div>
           </div>
           <div className="w-1/2">
             <span className="text-4xl pl-20">To pay:</span>
             {selectedItemsForPresentation?.map((product) => <div className="ml-20 pt-5 text-2xl">{product?.product?.title} - {product?.product?.price}$ x {product.quantity}</div>)}
             <div className="text-5xl pl-20 pt-20">Total: ${selectedItemsForPresentation?.reduce((acc, curr) => acc + (curr?.product?.price || 0) * curr.quantity, 0)}</div>
+            <Tabs defaultValue="address" className="w-[400px] pl-20 pt-10">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="address">Address</TabsTrigger>
+                <TabsTrigger value="payment">Payment</TabsTrigger>
+              </TabsList>
+              <TabsContent value="address">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Address</CardTitle>
+                    <CardDescription>
+                      Enter your address here.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <div className="space-y-1">
+                      <Input />
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button>Save</Button>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+              <TabsContent value="payment">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Payment</CardTitle>
+                    <CardDescription>
+                      Enter your payment details here.
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <div className="space-y-1">
+                      <Input />
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button>Save</Button>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+            </Tabs>
           </div>
           </div>
         <div className="h-1/13">

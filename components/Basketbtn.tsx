@@ -4,7 +4,6 @@ import { Drawer,
 	DrawerContent, 
 	DrawerClose, 
 	DrawerTrigger, 
-	DrawerOverlay, 
 	DrawerFooter, 
 	DrawerDescription, 
 	DrawerTitle, 
@@ -12,7 +11,6 @@ import { Drawer,
 import { Button } from './ui/button';
 import {GlobalProductsContext} from "@/contexts/GlobalItemContext";
 import { useContext } from'react';
-import ProductCard from './ProductCard';
 import Link from 'next/link';
 import ProductCardCart from './ProductCardCart';
 import { CartContentContext} from "@/contexts/CartContentContext";

@@ -1,8 +1,7 @@
 "use client"
 import Store from "@/types/store";
-import { useContext } from "react";
-import { CartContentContext, useCartContentContext} from "@/contexts/CartContentContext";
-import {Card, CardContent, CardDescription, CardTitle, CardHeader, CardFooter} from "@/components/ui/card"
+import { useCartContentContext} from "@/contexts/CartContentContext";
+import { Card, CardDescription, CardTitle, CardHeader } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Plus, Minus, Trash2 } from "lucide-react";
 import Image from "next/image";
