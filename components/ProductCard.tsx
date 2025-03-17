@@ -67,7 +67,7 @@ export default function ProductCard({product}: ProductCardProps) {
         <Button onClick={MAmount} className="bg-white hover:bg-white"><Minus className="text-black"/></Button>
       </div>
     </CardHeader>
-    <CardContent className="flex stretch-items">
+    <CardContent className="flex stretch-items w-9/10">
       <Image src={product.image} alt={product.title} width={200} height={200} />
       <CardDescription>{product.description}</CardDescription>
     </CardContent>
