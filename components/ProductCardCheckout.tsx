@@ -7,11 +7,12 @@ import Image from "next/image";
 import { useState } from "react";
 
 interface ProductCardCheckoutProps {
-  product: Store.CartProduct;
+  product?: Store.CartProduct;
   productamount: number;
 }
 
 export default function ProductCardCheckout({product, productamount}: ProductCardCheckoutProps) {
+  if (!product) return null;
   return <Card className="">
     <CardHeader className="flex-row place-content-between">
       <div className="flex">

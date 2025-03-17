@@ -10,6 +10,7 @@ export default function Support() {
             </div>
             <div className="w-1/2 justify-center place-self-center">
                 <div className="place-self-center text-4xl">Welcome to Simple Store Support Page!</div>
+                <div className="place-self-center text-4xl">What is your problem?</div>
                 <Input />
                 <Input />
                 <Input />

@@ -13,7 +13,7 @@ declare namespace Store {
   }
 
   interface CartProduct extends Product {
-    quantity: number,
+    quantity?: number,
   }
 
   interface CardSelectedProduct {

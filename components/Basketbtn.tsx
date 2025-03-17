@@ -24,7 +24,7 @@ interface BasketbtnProps {
 
 export default function Basketbtn({}: BasketbtnProps){
     const { products } = useContext(GlobalProductsContext);
-  const { selectedItems, setSelectedItems } = useContext(CartContentContext); // Don't name it content, at least add "card" to it
+  const { selectedItems, setSelectedItems } = useContext(CartContentContext);
   console.log("SELECTED ITEMS", selectedItems);
   let selectedItemsForPresentation: Store.CardSelectedProduct[] = [];
   if (selectedItems) {
@@ -48,7 +48,7 @@ export default function Basketbtn({}: BasketbtnProps){
           <DrawerTitle>
             Your Shopping Cart
           </DrawerTitle>
-            Summary:
+            Total price: ${selectedItemsForPresentation?.reduce((acc, curr) => acc + (curr?.product?.price || 0) * curr.quantity, 0)}
         </DrawerHeader>
           <DrawerDescription className='pl-10 overflow-y-scroll '>
             {!selectedItemsForPresentation || selectedItemsForPresentation.length == 0 ? <span>Your shopping cart is empty :/</span> : selectedItemsForPresentation?.map((cardProduct) => <ProductCardCart key={cardProduct?.product?.id} product={cardProduct} productamount={cardProduct.quantity}/>)}

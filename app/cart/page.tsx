@@ -28,12 +28,12 @@ export default function Cart() {
           <div className="h-11/13 w-full flex">
           <div className="w-1/2">
             <span className="text-4xl pl-13">Cart:</span>
-            <div className="pl-20 pt-3 overflow-y-scroll h-10/11">{selectedItemsForPresentation == null || selectedItemsForPresentation.length == 0 ? <span className="text-3xl ml-20 pt-20">Your shopping cart is empty :/</span> : selectedItemsForPresentation?.map((product) => <div><ProductCardCheckout product={product.product} productamount={product?.quantity} /> </div>)}</div>
+            <div className="pl-20 pt-3 overflow-y-scroll h-10/11">{selectedItemsForPresentation == null || selectedItemsForPresentation.length == 0 ? <span className="text-3xl ml-20 pt-20">Your shopping cart is empty :/</span> : selectedItemsForPresentation?.map((product) => <div><ProductCardCheckout product={product?.product} productamount={product?.quantity} /> </div>)}</div>
           </div>
           <div className="w-1/2">
             <span className="text-4xl pl-20">To pay:</span>
-            {selectedItemsForPresentation?.map((product) => <div className="ml-20 pt-5 text-2xl">{product.product.title} - {product.product.price}$ x {product.quantity}</div>)}
-            <div className="text-5xl pl-20 pt-20">Total: ${selectedItemsForPresentation?.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0)}</div>
+            {selectedItemsForPresentation?.map((product) => <div className="ml-20 pt-5 text-2xl">{product?.product?.title} - {product?.product?.price}$ x {product.quantity}</div>)}
+            <div className="text-5xl pl-20 pt-20">Total: ${selectedItemsForPresentation?.reduce((acc, curr) => acc + (curr?.product?.price || 0) * curr.quantity, 0)}</div>
           </div>
           </div>
         <div className="h-1/13">

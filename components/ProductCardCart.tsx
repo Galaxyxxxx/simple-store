@@ -59,7 +59,7 @@ export default function ProductCardCart({product, productamount}: ProductCardCar
         <Button onClick={icrementQuantity} className="bg-white hover:bg-white"><Plus className="text-black"/></Button>
         {productamount}
         <Button onClick={decrementQuantity} className="bg-white hover:bg-white"><Minus className="text-black"/></Button>
-        <p className="justify-self-end pt-2 pr-2 flex-col">Price: ${product?.product?.price} Total Price: ${product?.product?.price * product.quantity}</p>
+        <p className="justify-self-end pt-2 pr-2 flex-col">Price: ${product?.product?.price} Total Price: ${(product?.product?.price || 0) * product.quantity}</p>
       </div>
     </CardHeader>
   </Card>
