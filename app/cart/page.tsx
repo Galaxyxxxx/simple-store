@@ -8,12 +8,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { useState } from "react";
 
 
 import ProductCardCheckout from "@/components/ProductCardCheckout";
 import Store from "@/types/store";
-
-
 export default function Cart() {
   const { products } = useContext(GlobalProductsContext);
   const { selectedItems, setSelectedItems } = useContext(CartContentContext);
@@ -25,6 +24,18 @@ export default function Cart() {
           quantity: cardItemDetails.quantity
         }
 })};
+const [style, setStyle] = useState(true);
+const [notEmpty, setNotEmpty] = useState(false);
+function checkIfEmpty(){
+  setNotEmpty(true);
+}
+function changeToPayment(){
+  if (notEmpty){
+  setStyle(false);
+  } else {
+    alert("Please fill in all fields")
+  }
+}
 
   return (
     <div className="flex-auto h-screen overflow-hidden">
@@ -44,7 +55,7 @@ export default function Cart() {
             <Tabs defaultValue="address" className="w-[400px] pl-20 pt-10">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="address">Address</TabsTrigger>
-                <TabsTrigger value="payment">Payment</TabsTrigger>
+                <TabsTrigger value="payment" disabled={style}>Payment</TabsTrigger>
               </TabsList>
               <TabsContent value="address">
                 <Card>
@@ -55,12 +66,31 @@ export default function Cart() {
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-2">
+                    Name
+                    <div className="space-y-1">
+                      <Input onKeyDown={checkIfEmpty}/>
+                    </div>
+                    Last Name
+                    <div className="space-y-1">
+                      <Input />
+                    </div>
+                    City
+                    <div className="space-y-1">
+                      <Input />
+                    </div>
+                    Street
+                    <div className="space-y-1">
+                      <Input />
+                    </div>
+                    Building Number
                     <div className="space-y-1">
                       <Input />
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button>Save</Button>
+                    <div onClick={changeToPayment}>
+                      <Button>Save</Button>
+                    </div>
                   </CardFooter>
                 </Card>
               </TabsContent>

@@ -14,10 +14,10 @@ export default function ProductCardCheckout({product, productamount}: ProductCar
     <CardHeader className="flex-row place-content-between">
       <div className="flex">
         <Image src={product.image} alt={product.title} width={80} height={80} />
-            <div className="flex-col pl-10">
-                <CardTitle>{product.title}</CardTitle>
-                <CardDescription>Category: {product.category}</CardDescription>
-            </div>
+        <div className="flex-col pl-10">
+            <CardTitle>{product.title}</CardTitle>
+            <CardDescription>Category: {product.category}</CardDescription>
+        </div>
       </div>
       <div className="flex-row">
         Amount:  {productamount}

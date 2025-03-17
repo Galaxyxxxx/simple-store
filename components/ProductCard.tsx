@@ -1,6 +1,6 @@
 "use client"
 import Store from "@/types/store";
-import {Card, CardContent, CardDescription, CardTitle, CardHeader, CardFooter} from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardTitle, CardHeader, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Plus, Minus } from "lucide-react";
 import Image from "next/image";

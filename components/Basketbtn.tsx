@@ -41,25 +41,25 @@ export default function Basketbtn({}: BasketbtnProps){
     <DrawerTrigger asChild className="w-full h-full">
       <Button className='w-full h-full bg-white hover:bg-white p-1'><ShoppingCart className="h-full w-full text-black size-full" /></Button>
     </DrawerTrigger>
-      <DrawerContent className='h-4/5'>
-        <DrawerHeader>
-          <DrawerTitle>
-            Your Shopping Cart
-          </DrawerTitle>
-            Total price: ${selectedItemsForPresentation?.reduce((acc, curr) => acc + (curr?.product?.price || 0) * curr.quantity, 0)}
-        </DrawerHeader>
-          <DrawerDescription className='pl-10 overflow-y-scroll '>
-            {!selectedItemsForPresentation || selectedItemsForPresentation.length == 0 ? <span>Your shopping cart is empty :/</span> : selectedItemsForPresentation?.map((cardProduct) => <ProductCardCart key={cardProduct?.product?.id} product={cardProduct} productamount={cardProduct.quantity}/>)}
-          </DrawerDescription>
-            <DrawerFooter className='h-1/5'>
-              <Link href={'/cart'}>
-                <Button className='w-full'>Checkout</Button>
-              </Link>
-                <DrawerClose className='w-full '>
-              		<Button className='w-full '>Cancel</Button>
-                </DrawerClose>
-            </DrawerFooter>
-      </DrawerContent>
+    <DrawerContent className='h-4/5'>
+      <DrawerHeader>
+        <DrawerTitle>
+          Your Shopping Cart
+        </DrawerTitle>
+        Total price: ${selectedItemsForPresentation?.reduce((acc, curr) => acc + (curr?.product?.price || 0) * curr.quantity, 0)}
+      </DrawerHeader>
+      <DrawerDescription className='pl-10 overflow-y-scroll '>
+        {!selectedItemsForPresentation || selectedItemsForPresentation.length == 0 ? <span>Your shopping cart is empty :/</span> : selectedItemsForPresentation?.map((cardProduct) => <ProductCardCart key={cardProduct?.product?.id} product={cardProduct} productamount={cardProduct.quantity}/>)}
+      </DrawerDescription>
+      <DrawerFooter className='h-1/5'>
+        <Link href={'/cart'}>
+          <Button className='w-full'>Checkout</Button>
+        </Link>
+        <DrawerClose className='w-full '>
+        	<Button className='w-full '>Cancel</Button>
+        </DrawerClose>
+      </DrawerFooter>
+    </DrawerContent>
   </Drawer>
 </div>
 )};
