@@ -2,9 +2,9 @@
 import Store from "@/types/store";
 import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Navbar from "@/components/Navbar";
-import {GlobalProductsContext} from "@/contexts/GlobalItemContext";
+import { GlobalProductsContext } from "@/contexts/GlobalItemContext";
 
 
 export default function Home() {

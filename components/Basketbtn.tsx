@@ -1,13 +1,6 @@
 "use client"
-import { Key, ShoppingCart } from 'lucide-react';
-import { Drawer, 
-	DrawerContent, 
-	DrawerClose, 
-	DrawerTrigger, 
-	DrawerFooter, 
-	DrawerDescription, 
-	DrawerTitle, 
-	DrawerHeader } from './ui/drawer';
+import { ShoppingCart } from 'lucide-react';
+import { Drawer, DrawerContent, DrawerClose, DrawerTrigger, DrawerFooter, DrawerDescription, DrawerTitle, DrawerHeader } from './ui/drawer';
 import { Button } from './ui/button';
 import {GlobalProductsContext} from "@/contexts/GlobalItemContext";
 import { useContext } from'react';

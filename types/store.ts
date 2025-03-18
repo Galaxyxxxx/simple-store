@@ -18,13 +18,14 @@ declare namespace Store {
 
   interface CardSelectedProduct {
     quantity: number,
-    product?: Product,
+    product?: Product
   }
 
   interface CardItemDetails {
     quantity: number;
     
   }
+
 
   type CartItem = Map<number, CardItemDetails>;
 }

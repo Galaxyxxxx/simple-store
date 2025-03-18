@@ -9,8 +9,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, 
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useState } from "react";
-
-
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { useForm } from "react-hook-form"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import ProductCardCheckout from "@/components/ProductCardCheckout";
 import Store from "@/types/store";
 export default function Cart() {
@@ -25,17 +26,11 @@ export default function Cart() {
         }
 })};
 const [style, setStyle] = useState(true);
-const [notEmpty, setNotEmpty] = useState(false);
-function checkIfEmpty(){
-  setNotEmpty(true);
-}
+const [selectedTab, setSelectedTab] = useState<string>("personalInfo");
 function changeToPayment(){
-  if (notEmpty){
   setStyle(false);
-  } else {
-    alert("Please fill in all fields")
-  }
 }
+const form = useForm()
 
   return (
     <div className="flex-auto h-screen overflow-hidden">
@@ -49,48 +44,110 @@ function changeToPayment(){
             <span className="text-3xl ml-20 pt-20">Your shopping cart is empty :/</span> : selectedItemsForPresentation?.map((product) => <div><ProductCardCheckout product={product?.product} productamount={product?.quantity} /> </div>)}</div>
           </div>
           <div className="w-1/2">
-            <span className="text-4xl pl-20">To pay:</span>
-            {selectedItemsForPresentation?.map((product) => <div className="ml-20 pt-5 text-2xl">{product?.product?.title} - {product?.product?.price}$ x {product.quantity}</div>)}
+            <div className="h-1/4 overflow-y-scroll mb-0 w-2/3">
+              <span className="text-4xl pl-20">To pay:</span>
+              {selectedItemsForPresentation?.map((product) => <div className="ml-20 pt-5 text-2xl">{product?.product?.title} - {product?.product?.price}$ x {product.quantity}</div>)}
+            </div>
             <div className="text-5xl pl-20 pt-20">Total: ${selectedItemsForPresentation?.reduce((acc, curr) => acc + (curr?.product?.price || 0) * curr.quantity, 0)}</div>
-            <Tabs defaultValue="address" className="w-[400px] pl-20 pt-10">
+            <Tabs defaultValue="personalInfo" className="w-[400px] pl-20 pt-10" value={selectedTab} onValueChange={setSelectedTab}>
               <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="address">Address</TabsTrigger>
-                <TabsTrigger value="payment" disabled={style}>Payment</TabsTrigger>
               </TabsList>
-              <TabsContent value="address">
-                <Card>
+              <TabsContent value="personalInfo">
+                <Card className="max-h-100 overflow-y-scroll">
                   <CardHeader>
-                    <CardTitle>Address</CardTitle>
+                    <CardTitle>Personal information</CardTitle>
                     <CardDescription>
-                      Enter your address here.
+                      Enter your personal information.
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-2">
-                    Name
-                    <div className="space-y-1">
-                      <Input onKeyDown={checkIfEmpty}/>
-                    </div>
-                    Last Name
-                    <div className="space-y-1">
-                      <Input />
-                    </div>
-                    City
-                    <div className="space-y-1">
-                      <Input />
-                    </div>
-                    Street
-                    <div className="space-y-1">
-                      <Input />
-                    </div>
-                    Building Number
-                    <div className="space-y-1">
-                      <Input />
-                    </div>
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(() => {})} className="space-y-8">
+                      <FormField
+                        control={form.control}
+                        name="Name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Name</FormLabel>
+                            <FormControl>
+                              <Input required/>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="Last Name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Last Name</FormLabel>
+                            <FormControl>
+                              <Input required/>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="Email Address"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Email Address</FormLabel>
+                            <FormControl>
+                              <Input type="email" required/>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="City"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>City</FormLabel>
+                            <FormControl>
+                              <Input required/>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="Street"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Street</FormLabel>
+                            <FormControl>
+                              <Input required/>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name="Building Number"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Building Number</FormLabel>
+                            <FormControl>
+                              <Input type="number" required/>
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <div className="mt-5" onClick={changeToPayment}>
+                        <Button type="submit">Save</Button>
+                      </div>
+                    </form>
+                  </Form>
                   </CardContent>
                   <CardFooter>
-                    <div onClick={changeToPayment}>
-                      <Button>Save</Button>
-                    </div>
                   </CardFooter>
                 </Card>
               </TabsContent>
@@ -103,6 +160,19 @@ function changeToPayment(){
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-2">
+                  <Select>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select payment method" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        <SelectItem value="card">Card</SelectItem>
+                        <SelectItem value="paypal">PayPal</SelectItem>
+                        <SelectItem value="paysafecard">Paysafecard</SelectItem>
+                        <SelectItem value="applePay">Apple pay</SelectItem>
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
                     <div className="space-y-1">
                       <Input />
                     </div>
