@@ -15,7 +15,7 @@ export default function Home() {
       <div className="flex-row justify-center h-1/13 w-full fixed top-0 bg-white outline">
         <Navbar />
       </div>
-      <div className="flex-col pt-20">
+      <div className="flex-col pt-20 w-1/2 place-self-center">
         {products && products.map((element: Store.Product, index: number) => (
           <div key={index} className="flex-initial">
             <ProductCard product={element} />
