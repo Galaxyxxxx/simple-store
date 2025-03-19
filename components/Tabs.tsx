@@ -7,8 +7,6 @@ import { useState } from "react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { useForm } from "react-hook-form"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import ProductCardCheckout from "@/components/ProductCardCheckout";
-import Store from "@/types/store";
 import { Progress } from "@/components/ui/progress"
 
 interface TabsbtnProps {
@@ -18,14 +16,19 @@ interface TabsbtnProps {
 
 
 
-
 export default function Tabsbtn({}: TabsbtnProps) {
   const [selectedTab, setSelectedTab] = useState<string>("personalInfo");
   const [progress, setprogress] = useState<number>(33);
-  const form = useForm()
+  const [selected, setSelected] = useState<string>("");
+  const [payment, setPayment] = useState<number>();
+  const form = useForm();
   function changeToPayment() {
     setprogress((prev) => prev + 33);
     setSelectedTab("payment");
+  }
+  function goBack() {
+    setprogress((prev) => prev - 33);
+    setSelectedTab("personalInfo");
   }
     return <Tabs defaultValue="personalInfo" className="w-[400px] pl-20 pt-10" value={selectedTab} onValueChange={setSelectedTab}>
     <TabsList className="grid w-full grid-cols-2">
@@ -141,29 +144,50 @@ export default function Tabsbtn({}: TabsbtnProps) {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2">
-        <Select>
-          <SelectTrigger className="w-full">
-            <SelectValue placeholder="Select payment method" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectGroup>
-              <SelectItem value="card">Card</SelectItem>
-              <SelectItem value="paypal">PayPal</SelectItem>
-              <SelectItem value="paysafecard">Paysafecard</SelectItem>
-              <SelectItem value="applePay">Apple pay</SelectItem>
-            </SelectGroup>
-          </SelectContent>
-        </Select>
-          <div className="space-y-1">
-            <Input />
-          </div>
+        <Form {...form}>
+        <form onSubmit={form.handleSubmit(() => {})} className="space-y-8">
+          <FormField
+            control={form.control}
+            name="paymentMethod"
+            render={({ field }) => (
+              <FormItem>
+                <Select onValueChange={setSelected}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select payment method" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="card">Card</SelectItem>
+                      <SelectItem value="paypal">PayPal</SelectItem>
+                      <SelectItem value="paysafecard">Paysafecard</SelectItem>
+                      <SelectItem value="applePay">Apple pay</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="payment"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Payment</FormLabel>
+                <FormControl>
+                  <Input type="number" required/>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+        </form>
+        </Form>
         </CardContent>
         <CardFooter>
-          <div>
+          <div onClick={goBack}>
           <Button>Go Back</Button>
           </div>
           <div className="ml-31">
-          <Button>Save</Button>
+          <Button type="submit">Save</Button>
           </div>
         </CardFooter>
       </Card>
