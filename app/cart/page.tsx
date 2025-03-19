@@ -26,12 +26,7 @@ export default function Cart() {
           quantity: cardItemDetails.quantity
         }
 })};
-const [style, setStyle] = useState(true);
-const [selectedTab, setSelectedTab] = useState<string>("personalInfo");
-function changeToPayment(){
-  setStyle(false);
-}
-const form = useForm()
+
 
   return (
     <div className="flex-auto h-screen overflow-hidden">
@@ -47,7 +42,7 @@ const form = useForm()
           <div className="w-1/2">
             <div className="h-1/4 overflow-y-scroll mb-0 w-2/3">
               <span className="text-4xl pl-20">To pay:</span>
-              {selectedItemsForPresentation?.map((product) => <div className="ml-20 pt-5 text-2xl">{product?.product?.title} - {product?.product?.price}$ x {product.quantity}</div>)}
+              {selectedItemsForPresentation?.map((product) => <div className="ml-20 pt-5 text-2xl">{product?.product?.title} - ${product?.product?.price} x {product.quantity}</div>)}
             </div>
             <div className="text-5xl pl-20 pt-20">Total: ${selectedItemsForPresentation?.reduce((acc, curr) => acc + (curr?.product?.price || 0) * curr.quantity, 0)}</div>
             <Tabsbtn />

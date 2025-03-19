@@ -26,7 +26,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
   const [city, setCity] = useState<string>("");
   const [street, setStreet] = useState<string>("");
   const [buildingNumber, setBuildingNumber] = useState<string>("");
-  const [paymentMethod, setSelectedMethod] = useState<string>("");
+  const [selectedMethod, setSelectedMethod] = useState<string>("");
   const [payment, setPayment] = useState<string>("");
   const form = useForm();
   function goForward() {
@@ -42,7 +42,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
     console.log(city) // Test
     console.log(street) // Test
     console.log(buildingNumber) // Test
-    console.log(paymentMethod) // Test
+    console.log(selectedMethod) // Test
     console.log(payment) // Test
   }
   function goBack() {
@@ -80,7 +80,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input required onChangeCapture={e => setName(e.currentTarget.value)}/>
+                    <Input value={name} required onChangeCapture={e => setName(e.currentTarget.value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -93,7 +93,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 <FormItem>
                   <FormLabel>Last Name</FormLabel>
                   <FormControl>
-                    <Input required onChangeCapture={e => setLastName(e.currentTarget.value)}/>
+                    <Input value={lastName} required onChangeCapture={e => setLastName(e.currentTarget.value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,7 +106,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 <FormItem>
                   <FormLabel>Email Address</FormLabel>
                   <FormControl>
-                    <Input type="email" required onChangeCapture={e => setEmail(e.currentTarget.value)}/>
+                    <Input value={email} type="email" required onChangeCapture={e => setEmail(e.currentTarget.value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -119,7 +119,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 <FormItem>
                   <FormLabel>City</FormLabel>
                   <FormControl>
-                    <Input required onChangeCapture={e => setCity(e.currentTarget.value)}/>
+                    <Input value={city} required onChangeCapture={e => setCity(e.currentTarget.value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -132,7 +132,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 <FormItem>
                   <FormLabel>Street</FormLabel>
                   <FormControl>
-                    <Input required onChangeCapture={e => setStreet(e.currentTarget.value)}/>
+                    <Input value={street} required onChangeCapture={e => setStreet(e.currentTarget.value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -145,7 +145,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 <FormItem>
                   <FormLabel>Building Number</FormLabel>
                   <FormControl>
-                    <Input type="number" required onChangeCapture={e => setBuildingNumber(e.currentTarget.value)}/>
+                    <Input value={buildingNumber} type="number" required onChangeCapture={e => setBuildingNumber(e.currentTarget.value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -174,19 +174,20 @@ export default function Tabsbtn({}: TabsbtnProps) {
         <form onSubmit={form.handleSubmit(() => {})} className="space-y-8">
           <FormField
             control={form.control}
-            name="paymentMethod"
+            name="selectedMethod"
             render={({ field }) => (
               <FormItem>
-                <Select onValueChange={setSelectedMethod}>
+                <Select value={selectedMethod} onValueChange={setSelectedMethod}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select payment method" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectItem value="card">Card</SelectItem>
-                      <SelectItem value="paypal">PayPal</SelectItem>
-                      <SelectItem value="paysafecard">Paysafecard</SelectItem>
-                      <SelectItem value="applePay">Apple pay</SelectItem>
+                      <SelectItem value="Card">Card</SelectItem>
+                      <SelectItem value="Paypal">PayPal</SelectItem>
+                      <SelectItem value="Paysafecard">Paysafecard</SelectItem>
+                      <SelectItem value="Apple Pay">Apple Pay</SelectItem>
+                      <SelectItem value="Blik">Blik</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
@@ -200,7 +201,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
               <FormItem>
                 <FormLabel>Payment</FormLabel>
                 <FormControl>
-                  <Input type="number" required onChangeCapture={e => setPayment(e.currentTarget.value)}/>
+                  <Input value={payment} type="number" required onChangeCapture={e => setPayment(e.currentTarget.value)}/>
                 </FormControl>
               </FormItem>
             )}
@@ -236,7 +237,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
            <br/>
            Street: {street} {buildingNumber}
            <br/>
-           Payment Method: {paymentMethod}
+           Payment Method: {selectedMethod}
          </div>
         </CardContent>
         <CardFooter>
