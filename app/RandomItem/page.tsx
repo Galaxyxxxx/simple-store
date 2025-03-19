@@ -20,7 +20,7 @@ export default function RandomItem() {
     
     return (
         <div className="flex-auto h-screen">
-            <div className="flex-row justify-center h-1/16 sticky top-0 bg-white outline">
+            <div className="flex-row justify-center h-1/13 sticky top-0 bg-white outline">
                 <Navbar />
             </div>
             <div className="w-1/2 justify-center place-self-center">
