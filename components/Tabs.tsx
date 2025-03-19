@@ -8,6 +8,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useForm } from "react-hook-form"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Progress } from "@/components/ui/progress"
+import { useEffect } from "react";
 
 interface TabsbtnProps {
     
@@ -18,18 +19,43 @@ interface TabsbtnProps {
 
 export default function Tabsbtn({}: TabsbtnProps) {
   const [selectedTab, setSelectedTab] = useState<string>("personalInfo");
-  const [progress, setprogress] = useState<number>(33);
-  const [selected, setSelected] = useState<string>("");
-  const [payment, setPayment] = useState<number>();
+  const [progress, setprogress] = useState<number>(34);
+  const [name, setName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [city, setCity] = useState<string>("");
+  const [street, setStreet] = useState<string>("");
+  const [buildingNumber, setBuildingNumber] = useState<string>("");
+  const [paymentMethod, setSelectedMethod] = useState<string>("");
+  const [payment, setPayment] = useState<string>("");
   const form = useForm();
-  function changeToPayment() {
+  function goForward() {
     setprogress((prev) => prev + 33);
-    setSelectedTab("payment");
+    if(selectedTab == "personalInfo"){
+      setSelectedTab("payment");
+    } else {
+      setSelectedTab("finalize");
+    }
+    console.log(name) // Test
+    console.log(lastName) // Test
+    console.log(email) // Test
+    console.log(city) // Test
+    console.log(street) // Test
+    console.log(buildingNumber) // Test
+    console.log(paymentMethod) // Test
+    console.log(payment) // Test
   }
   function goBack() {
     setprogress((prev) => prev - 33);
-    setSelectedTab("personalInfo");
+    if(selectedTab == "payment"){
+      setSelectedTab("personalInfo");
+    } else {
+      setSelectedTab("payment");
+    }
   }
+  useEffect(() => {
+    setPayment(form.getValues("payment"));
+  }, [form]);
     return <Tabs defaultValue="personalInfo" className="w-[400px] pl-20 pt-10" value={selectedTab} onValueChange={setSelectedTab}>
     <TabsList className="grid w-full grid-cols-2">
       <TabsTrigger value={selectedTab} className="w-79">
@@ -54,7 +80,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input required/>
+                    <Input required onChangeCapture={e => setName(e.currentTarget.value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -67,7 +93,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 <FormItem>
                   <FormLabel>Last Name</FormLabel>
                   <FormControl>
-                    <Input required/>
+                    <Input required onChangeCapture={e => setLastName(e.currentTarget.value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -80,7 +106,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 <FormItem>
                   <FormLabel>Email Address</FormLabel>
                   <FormControl>
-                    <Input type="email" required/>
+                    <Input type="email" required onChangeCapture={e => setEmail(e.currentTarget.value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -93,7 +119,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 <FormItem>
                   <FormLabel>City</FormLabel>
                   <FormControl>
-                    <Input required/>
+                    <Input required onChangeCapture={e => setCity(e.currentTarget.value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -106,7 +132,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 <FormItem>
                   <FormLabel>Street</FormLabel>
                   <FormControl>
-                    <Input required/>
+                    <Input required onChangeCapture={e => setStreet(e.currentTarget.value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -119,14 +145,14 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 <FormItem>
                   <FormLabel>Building Number</FormLabel>
                   <FormControl>
-                    <Input type="number" required/>
+                    <Input type="number" required onChangeCapture={e => setBuildingNumber(e.currentTarget.value)}/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <div className="mt-5" onClick={changeToPayment}>
-              <Button type="submit">Save</Button>
+            <div className="mt-5 ml-48" onClick={goForward}>
+              <Button type="submit">Next</Button>
             </div>
           </form>
         </Form>
@@ -151,7 +177,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
             name="paymentMethod"
             render={({ field }) => (
               <FormItem>
-                <Select onValueChange={setSelected}>
+                <Select onValueChange={setSelectedMethod}>
                   <SelectTrigger className="w-full">
                     <SelectValue placeholder="Select payment method" />
                   </SelectTrigger>
@@ -174,20 +200,51 @@ export default function Tabsbtn({}: TabsbtnProps) {
               <FormItem>
                 <FormLabel>Payment</FormLabel>
                 <FormControl>
-                  <Input type="number" required/>
+                  <Input type="number" required onChangeCapture={e => setPayment(e.currentTarget.value)}/>
                 </FormControl>
               </FormItem>
             )}
           />
-        </form>
-        </Form>
+          </form>
+          </Form>
+        </CardContent>
+        <CardFooter>
+          <div onClick={goBack}>
+          <Button>Go Back</Button>
+          </div>
+          <div className="ml-31" onClick={goForward}>
+          <Button type="submit">Next</Button>
+          </div>
+        </CardFooter>
+      </Card>
+    </TabsContent>
+    <TabsContent value="finalize">
+      <Card>
+        <CardHeader>
+          <CardTitle>Payment</CardTitle>
+          <CardDescription>
+            All your info
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-2">
+         <div>
+           Name: {name} {lastName}
+           <br/>
+           Email Address: {email}
+           <br/>
+           City: {city}
+           <br/>
+           Street: {street} {buildingNumber}
+           <br/>
+           Payment Method: {paymentMethod}
+         </div>
         </CardContent>
         <CardFooter>
           <div onClick={goBack}>
           <Button>Go Back</Button>
           </div>
           <div className="ml-31">
-          <Button type="submit">Save</Button>
+          <Button type="submit">Buy</Button>
           </div>
         </CardFooter>
       </Card>
