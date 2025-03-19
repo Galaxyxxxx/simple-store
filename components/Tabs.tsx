@@ -9,19 +9,29 @@ import { useForm } from "react-hook-form"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import ProductCardCheckout from "@/components/ProductCardCheckout";
 import Store from "@/types/store";
+import { Progress } from "@/components/ui/progress"
 
 interface TabsbtnProps {
     
 }
 
 
-const [selectedTab, setSelectedTab] = useState<string>("personalInfo");
-const form = useForm()
+
 
 
 export default function Tabsbtn({}: TabsbtnProps) {
+  const [selectedTab, setSelectedTab] = useState<string>("personalInfo");
+  const [progress, setprogress] = useState<number>(33);
+  const form = useForm()
+  function changeToPayment() {
+    setprogress((prev) => prev + 33);
+    setSelectedTab("payment");
+  }
     return <Tabs defaultValue="personalInfo" className="w-[400px] pl-20 pt-10" value={selectedTab} onValueChange={setSelectedTab}>
     <TabsList className="grid w-full grid-cols-2">
+      <TabsTrigger value={selectedTab} className="w-79">
+        <Progress value={progress} />
+      </TabsTrigger>
     </TabsList>
     <TabsContent value="personalInfo">
       <Card className="max-h-100 overflow-y-scroll">
@@ -112,7 +122,7 @@ export default function Tabsbtn({}: TabsbtnProps) {
                 </FormItem>
               )}
             />
-            <div className="mt-5">
+            <div className="mt-5" onClick={changeToPayment}>
               <Button type="submit">Save</Button>
             </div>
           </form>
@@ -149,7 +159,12 @@ export default function Tabsbtn({}: TabsbtnProps) {
           </div>
         </CardContent>
         <CardFooter>
+          <div>
+          <Button>Go Back</Button>
+          </div>
+          <div className="ml-31">
           <Button>Save</Button>
+          </div>
         </CardFooter>
       </Card>
     </TabsContent>
