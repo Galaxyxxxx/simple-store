@@ -5,15 +5,20 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalProductsContext } from "@/contexts/GlobalItemContext";
 import Image from "next/image";
 import Store from "@/types/store";
+import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation'
+
 
 export default function Product() {
+  const router = useRouter()
   const {products} = useContext(GlobalProductsContext);
   const [selectedProduct, setSelectedProduct] = useState<Store.Product | undefined>(undefined);
+  const {id} = useParams();
+  const idAsNumber = Number(id);
   useEffect(() => {
-    const id = parseInt(window.location.pathname.slice(9));
     if (products) {
-    if (id > products.length) {window.location.href = "/"}
-      setSelectedProduct(products?.find(product => product.id === id));
+    if (idAsNumber > products.length) router.push("/");
+      setSelectedProduct(products?.find(product => product.id === idAsNumber));
     }}, [products])
   
     
