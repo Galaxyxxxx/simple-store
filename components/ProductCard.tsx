@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardTitle, CardHeader, CardFooter }
 import { Button } from "@/components/ui/button"
 import { Plus, Minus } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useContext } from "react";
 import { CartContentContext} from "@/contexts/CartContentContext";
 import { toast }  from "sonner";
@@ -58,7 +59,11 @@ export default function ProductCard({product}: ProductCardProps) {
   return <Card>
     <CardHeader className="flex-row place-content-between">
       <div className="flex-col">
-        <CardTitle>{product.title}</CardTitle>
+        <CardTitle>
+          <Link href={`/product/${product.id}`} className="underline hover:text-primary-600">
+            {product.title}
+          </Link>
+        </CardTitle>
         <CardDescription>Category: {product.category}</CardDescription>
       </div>
       <div className="flex-row">

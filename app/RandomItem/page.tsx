@@ -23,7 +23,7 @@ export default function RandomItem() {
             <div className="flex-row justify-center h-1/13 sticky top-0 bg-white outline">
                 <Navbar />
             </div>
-            <div className="w-1/2 justify-center place-self-center">
+            <div className="w-1/2 h-11/13 justify-center place-self-center">
                 <div className="place-self-center text-4xl">Your random item is:</div>
                 {!!randomPickedProduct && 
                 <div className="flex-initial">
