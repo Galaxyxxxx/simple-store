@@ -28,7 +28,7 @@ export default function ProductCard({product}: ProductCardProps) {
       const copyOfSelectedtems = structuredClone(selectedItems);
       copyOfSelectedtems?.set(product.id, { quantity: foundQuantity + productamount });
       setSelectedItems(copyOfSelectedtems);
-      console.log(selectedItems);}
+      }
     } else if (!selectedItems?.has(product.id)) {
       const copyOfSelectedtems = structuredClone(selectedItems) || new Map();
       copyOfSelectedtems?.set(product.id, { quantity: productamount });

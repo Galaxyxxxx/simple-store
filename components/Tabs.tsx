@@ -36,14 +36,6 @@ export default function Tabsbtn({}: TabsbtnProps) {
     } else {
       setSelectedTab("finalize");
     }
-    console.log(name) // Test
-    console.log(lastName) // Test
-    console.log(email) // Test
-    console.log(city) // Test
-    console.log(street) // Test
-    console.log(buildingNumber) // Test
-    console.log(selectedMethod) // Test
-    console.log(payment) // Test
   }
   function goBack() {
     setprogress((prev) => prev - 33);

@@ -41,7 +41,6 @@ export default function ProductCardCart({product, productamount}: ProductCardCar
         copyOfSelectedItems.delete(product.product.id);
         setSelectedItems(copyOfSelectedItems);
       }
-    console.log("Deleted");
   }
   return <Card className="">
     <CardHeader className="flex-row place-content-between">

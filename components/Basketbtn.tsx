@@ -16,7 +16,6 @@ interface BasketbtnProps {
 export default function Basketbtn({}: BasketbtnProps){
     const { products } = useContext(GlobalProductsContext);
   const { selectedItems, setSelectedItems } = useContext(CartContentContext);
-  console.log("SELECTED ITEMS", selectedItems);
   let selectedItemsForPresentation: Store.CardSelectedProduct[] = [];
   if (selectedItems) {
     selectedItemsForPresentation = Array.from(selectedItems.entries()).map(([key, cardItemDetails]) => {

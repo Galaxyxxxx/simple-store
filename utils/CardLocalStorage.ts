@@ -27,7 +27,6 @@ const useCardLocalStorage = () => {
 
   const writeSelectedProductsToLocalStorage = async (selectedProducts: Store.CartItem) => {
     try {
-      console.log('SELECTED PRODUCTS', selectedProducts);
       if (selectedProducts) {
         await window.localStorage.setItem(SELECTED_PRODUCTS_KEY, JSON.stringify(Array.from(selectedProducts.entries())));
         setSelectedProductsFromLocalStorage(selectedProducts);
