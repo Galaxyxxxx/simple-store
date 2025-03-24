@@ -14,9 +14,16 @@ export default function Search() {
             <div className="flex-row justify-center h-1/13 sticky top-0 bg-white outline">
                 <Navbar />
             </div>
-            <div className="w-1/2 justify-center place-self-center">
+            {searchedProducts && searchedProducts.length <= 2 &&
+            <div className="w-1/2 h-11/13 justify-center place-self-center">
                 { searchedProducts?.map((element: Store.Product) => <ProductCard product={element}></ProductCard>)}
             </div>
+            } 
+            {searchedProducts && searchedProducts.length > 2 &&
+                <div className="w-1/2 justify-center place-self-center">
+                { searchedProducts?.map((element: Store.Product) => <ProductCard product={element}></ProductCard>)}
+                </div>
+            }
             <div className="h-1/13">
                 <Footer />
             </div>
