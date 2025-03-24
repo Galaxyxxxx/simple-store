@@ -31,6 +31,8 @@ export default function Sidebarbtn({}) {
                         <div className="w-full h-1/4 px-5 py-3 text-xl">Clothing</div>
                         <div className="w-full h-1/4 px-5 py-3 text-xl">Food</div>
                         <div className="w-full h-1/4 px-5 py-3 text-xl">Weapons</div>
+                        <div className="w-full h-1/4 px-5 py-3 text-xl">Toys</div>
+                        <div className="w-full h-1/4 px-5 py-3 text-xl">Books</div>
                     </div>
                 </SheetDescription>
             </SheetContent>
