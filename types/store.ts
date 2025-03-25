@@ -25,6 +25,14 @@ declare namespace Store {
     quantity: number;
     
   }
+  interface Categories {
+    id: number,
+    name: "AGD" | "Headphones" | "Monitors" | "Smartphones" | "Smartwatches" | "TVs" | "VR Headsets";
+  }
+  interface Filters {
+    id: number,
+    state: boolean
+  }
 
 
   type CartItem = Map<number, CardItemDetails>;

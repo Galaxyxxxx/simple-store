@@ -8,17 +8,15 @@ import { Search } from "lucide-react";
 
 export default function SearchBar(){
     const { products } = useContext(GlobalProductsContext);
-        const { searchedProducts, setSearchedProducts} = useContext(SearchContext)
+    const { searchedProducts, setSearchedProducts} = useContext(SearchContext)
     const [search, setSearch] = useState("");
     function searchBar(){
             const filteredProducts = products?.filter((product: Store.Product) => product.title.toLowerCase().includes(search.toLowerCase()));
-            console.log(filteredProducts);
             if (filteredProducts) {
             setSearchedProducts(filteredProducts);
             }
             if (filteredProducts?.length == 1) {
                 const filteredProduct = filteredProducts[0];
-                console.log(filteredProduct);
                 window.location.href = `/product/${filteredProduct.id}`;
             }
       }
