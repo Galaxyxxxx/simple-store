@@ -26,6 +26,11 @@ export default function Sidebarbtn({}) {
     const {filters, setFilters} = useContext(FilterContext);
     const param = useSearchParams()
     const locations = usePathname();
+    function addfromLink(id: number) {
+        if (filters){
+            setFilters(filters.map((filter: Store.Filters) => filter.id === id? {...filter, state:!filter.state}: filter));
+            }
+    }
     function handleChange(id: number) {
         if (filters){
         setFilters(filters.map((filter: Store.Filters) => filter.id === id? {...filter, state:!filter.state}: filter));
@@ -35,8 +40,7 @@ export default function Sidebarbtn({}) {
         } else {
             router.push(`/search?filter=` + param.get('filter') + id.toString());
         }
-        
-        
+
     }
     switch (locations){
         case '/':
@@ -53,13 +57,13 @@ export default function Sidebarbtn({}) {
                         </SheetHeader>
                         <SheetDescription>
                             <div className="flex flex-col w-full h-full">
-                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=4"}>Smartphones</Link></div>
-                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=6"}>TV's</Link></div>
-                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=1"}>AGD</Link></div>
-                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=2"}>Headphones</Link></div>
-                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=5"}>Smartwatches</Link></div>
-                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=3"}>Monitors</Link></div>
-                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=7"}>VR headsets</Link></div>
+                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=4"} onClick={() => addfromLink(4)}>Smartphones</Link></div>
+                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=6"} onClick={() => addfromLink(6)}>TV's</Link></div>
+                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=1"} onClick={() => addfromLink(1)}>AGD</Link></div>
+                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=2"} onClick={() => addfromLink(2)}>Headphones</Link></div>
+                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=5"} onClick={() => addfromLink(5)}>Smartwatches</Link></div>
+                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=3"} onClick={() => addfromLink(3)}>Monitors</Link></div>
+                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=7"} onClick={() => addfromLink(7)}>VR headsets</Link></div>
                             </div>
                         </SheetDescription>
                     </SheetContent>

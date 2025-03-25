@@ -5,11 +5,15 @@ import { SearchContext } from "@/contexts/SearchContext";
 import Link from "next/link";
 import Store from "@/types/store";
 import { Search } from "lucide-react";
+import { FilterContext } from "@/contexts/FilterContext";
+import { useSearchParams } from "next/navigation";
 
 export default function SearchBar(){
     const { products } = useContext(GlobalProductsContext);
     const { searchedProducts, setSearchedProducts} = useContext(SearchContext)
     const [search, setSearch] = useState("");
+    const {filters, setFilters} = useContext(FilterContext)
+    const param = useSearchParams();
     function searchBar(){
         if (!products)  return;
             setSearchedProducts(products)
@@ -29,9 +33,16 @@ export default function SearchBar(){
                     <datalist id="data">
                         {products?.map((product: Store.Product) => <option key={product.id} value={product.title} />)}
                     </datalist> 
+            { param.get('filter') &&
+            <Link href={"/search?filter=" + param.get('filter')}>
+                <Search onClick={searchBar} className="w-fit content-center mt-2 ml-3 flex"/> 
+            </Link>
+            }
+            { !param.get('filter') &&
             <Link href={"/search?filter="}>
                 <Search onClick={searchBar} className="w-fit content-center mt-2 ml-3 flex"/> 
             </Link>
+            }
         </div>
     )
 }

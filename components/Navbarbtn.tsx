@@ -5,6 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useContext } from "react"
+import { FilterContext } from "@/contexts/FilterContext";
 
 interface NavbarbtnProps {
     isImage: boolean
@@ -15,13 +16,23 @@ interface NavbarbtnProps {
 export default function Navbarbtn({ isImage, text, link }: NavbarbtnProps) {
     const location: string = usePathname();
     const {searchedProducts, setSearchedProducts} = useContext(SearchContext);
+    const {filters, setFilters} = useContext(FilterContext);
     const {products} = useContext(GlobalProductsContext);
     let searchdelete: boolean = false;
     if (location == "/search") searchdelete = true;
     if (location != "/search") searchdelete = false;
+
         const deleteSearch = (): void =>{ 
-            if (products)
+            if (products){
             setSearchedProducts(products);
+            setFilters([ {id: 1, state: false}, 
+                {id: 2, state: false}, 
+                {id: 3, state: false}, 
+                {id: 4, state: false}, 
+                {id: 5, state: false}, 
+                {id: 6, state: false}, 
+                {id: 7, state: false}]);
+            }
             else
             setSearchedProducts([]);
         }
