@@ -11,8 +11,6 @@ import { FilterContext } from "@/contexts/FilterContext";
 
 export default function Home() {
   const { products } = useContext(GlobalProductsContext);
-  const { filters } = useContext(FilterContext);
-  console.log(filters);
   return (
     <div className="flex-auto h-screen">
       <div className="flex-row justify-center h-1/13 w-full fixed top-0 bg-white outline">

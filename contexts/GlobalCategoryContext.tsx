@@ -28,10 +28,11 @@ export const useCategoriesContext = () => {
 export const GlobalCategoriesContextProvider: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  const [categories, setCategories] = useState<Store.Categories[]>(Categories);
   return (
     <GlobalCategoriesContext.Provider
       value={{
-        categories: Categories
+        categories: categories
       }}
     >
       {children}

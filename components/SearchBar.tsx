@@ -11,6 +11,8 @@ export default function SearchBar(){
     const { searchedProducts, setSearchedProducts} = useContext(SearchContext)
     const [search, setSearch] = useState("");
     function searchBar(){
+        if (!products)  return;
+            setSearchedProducts(products)
             const filteredProducts = products?.filter((product: Store.Product) => product.title.toLowerCase().includes(search.toLowerCase()));
             if (filteredProducts) {
             setSearchedProducts(filteredProducts);
@@ -27,7 +29,7 @@ export default function SearchBar(){
                     <datalist id="data">
                         {products?.map((product: Store.Product) => <option key={product.id} value={product.title} />)}
                     </datalist> 
-            <Link href={"/search"}>
+            <Link href={"/search?filter="}>
                 <Search onClick={searchBar} className="w-fit content-center mt-2 ml-3 flex"/> 
             </Link>
         </div>
