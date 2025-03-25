@@ -17,23 +17,32 @@ export default function Search() {
     const [filter, setFilter] = useState<boolean>(false);
 
     useEffect(() => {
-        if (searchParams.get('filter') != null && searchParams.get('filter')) {
-            const appliedFilters = searchParams.get('filter')?.split('');
-            console.log("filtry", appliedFilters);
-            const appliedCategories: string[] = [];
-            appliedFilters?.forEach((id: string) => {
-                const category = categories?.find((category: Store.Categories) => category.id == Number(id));
-                if (category) appliedCategories.push(category.name);
-            });
-            console.log("kategorie", appliedCategories);
-            if (products && appliedFilters && appliedFilters?.length > 0 && searchedProducts) {
-                const newProducts = products?.filter((product: Store.Product) => 
+        if (products) {
+            let filteredProducts = [...products];
+
+            // Apply search filter
+            const searchQuery = searchParams.get('query');
+            if (searchQuery) {
+                filteredProducts = filteredProducts.filter((product: Store.Product) =>
+                    product.title.toLowerCase().includes(searchQuery.toLowerCase())
+                );
+            }
+
+            // Apply category filters
+            const appliedFilters = searchParams.get('filter')?.split('') || [];
+            if (appliedFilters.length > 0) {
+                const appliedCategories: string[] = [];
+                appliedFilters.forEach((id: string) => {
+                    const category = categories?.find((category: Store.Categories) => category.id == Number(id));
+                    if (category) appliedCategories.push(category.name);
+                });
+
+                filteredProducts = filteredProducts.filter((product: Store.Product) =>
                     appliedCategories.some((category: string) => product.category.includes(category))
                 );
-                if (newProducts) {
-                    setSearchedProducts(newProducts);
-                }
             }
+
+            setSearchedProducts(filteredProducts);
         }
     }, [searchParams, categories, products, setSearchedProducts]);
 
@@ -42,21 +51,13 @@ export default function Search() {
             <div className="flex-row justify-center h-1/13 sticky top-0 bg-white outline">
                 <Navbar />
             </div>
-            {filter == false && searchedProducts && searchedProducts.length <= 2 &&
-                <div className="w-1/2 h-11/13 justify-center place-self-center">
-                    {searchedProducts?.map((element: Store.Product) => <ProductCard key={element.id} product={element} />)}
+            {searchedProducts && (
+                <div className={`w-1/2 ${searchedProducts.length <= 2 ? 'h-11/13' : ''} justify-center place-self-center`}>
+                    {searchedProducts.map((element: Store.Product) => (
+                        <ProductCard key={element.id} product={element} />
+                    ))}
                 </div>
-            }
-            {filter == false && searchedProducts && searchedProducts.length > 2 &&
-                <div className="w-1/2 justify-center place-self-center">
-                    {searchedProducts?.map((element: Store.Product) => <ProductCard key={element.id} product={element} />)}
-                </div>
-            }
-            {filter == true && searchedProducts && searchedProducts.length <= 2 &&
-                <div className="w-1/2 h-11/13 justify-center place-self-center">
-                    {searchedProducts?.map((element: Store.Product) => <ProductCard key={element.id} product={element} />)}
-                </div>
-            }
+            )}
             <div className="h-1/13">
                 <Footer />
             </div>

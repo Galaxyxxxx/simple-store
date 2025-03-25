@@ -19,8 +19,8 @@ export default function Navbarbtn({ isImage, text, link }: NavbarbtnProps) {
     const {filters, setFilters} = useContext(FilterContext);
     const {products} = useContext(GlobalProductsContext);
     let searchdelete: boolean = false;
-    if (location == "/search") searchdelete = true;
-    if (location != "/search") searchdelete = false;
+    if (location == "/search" || location == "/product") searchdelete = true;
+    if (location != "/search" || "/product/") searchdelete = false;
 
         const deleteSearch = (): void =>{ 
             if (products){
@@ -38,12 +38,7 @@ export default function Navbarbtn({ isImage, text, link }: NavbarbtnProps) {
         }
     return (
         <div className="text-3xl h-full relative">
-            { searchdelete == false &&
-            <Link href={link}>{isImage ? <Image src={text} alt="Logo" layout="fill" className="relative min-w-full aspect-1/1"/>: <div  className="justify-self-center"> {text} </div>}</Link>
-            }
-            { searchdelete == true &&
             <Link href={link}>{isImage ? <Image src={text} alt="Logo" layout="fill" className="relative min-w-full aspect-1/1" onClick={deleteSearch}/>: <div  className="justify-self-center"> {text} </div>}</Link>
-            }
         </div>
     )
 }

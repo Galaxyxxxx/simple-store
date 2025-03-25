@@ -23,7 +23,7 @@ interface SidebarbtnProps {
 
 export default function Sidebarbtn({}) {
     const router = useRouter();
-    const {filters, setFilters} = useContext(FilterContext);
+    const {filters, setFilters} = useContext(FilterContext);  
     const param = useSearchParams()
     const locations = usePathname();
     function addfromLink(id: number) {
@@ -32,14 +32,23 @@ export default function Sidebarbtn({}) {
             }
     }
     function handleChange(id: number) {
-        if (filters){
-        setFilters(filters.map((filter: Store.Filters) => filter.id === id? {...filter, state:!filter.state}: filter));
+        if (filters) {
+            setFilters(filters.map((filter: Store.Filters) => filter.id === id ? { ...filter, state: !filter.state } : filter));
         }
-        if (param.get('filter') && param.get('filter')?.includes(id.toString())){
-            router.push(`/search?filter=` + param.get('filter')?.replace(id.toString(), ""));
+
+        const currentFilters = param.get('filter') ? param.get('filter')!.split(',') : [];
+        const filterIndex = currentFilters.indexOf(id.toString());
+
+        if (filterIndex > -1) {
+            // Remove the filter if it exists
+            currentFilters.splice(filterIndex, 1);
         } else {
-            router.push(`/search?filter=` + param.get('filter') + id.toString());
+            // Add the filter if it doesn't exist
+            currentFilters.push(id.toString());
         }
+
+        const newFilterParam = currentFilters.join(',');
+        router.push(`/search?query=${param.get('query') || ''}&filter=${newFilterParam}`);
 
     }
     switch (locations){
@@ -58,7 +67,7 @@ export default function Sidebarbtn({}) {
                         <SheetDescription>
                             <div className="flex flex-col w-full h-full">
                                 <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=4"} onClick={() => addfromLink(4)}>Smartphones</Link></div>
-                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=6"} onClick={() => addfromLink(6)}>TV's</Link></div>
+                                <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=6"} onClick={() => addfromLink(6)}>TVs</Link></div>
                                 <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=1"} onClick={() => addfromLink(1)}>AGD</Link></div>
                                 <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=2"} onClick={() => addfromLink(2)}>Headphones</Link></div>
                                 <div className="w-full h-1/4 px-5 py-3 text-xl"><Link href={"/search?filter=5"} onClick={() => addfromLink(5)}>Smartwatches</Link></div>
@@ -85,7 +94,7 @@ export default function Sidebarbtn({}) {
                         <SheetDescription>
                             <div className="flex flex-col w-full h-full">
                                 <div className="w-full h-1/4 px-5 py-3 text-xl">Smartphones <Switch onCheckedChange={() => handleChange(4)} id="4" checked={filters?.find(f => f.id === 4)?.state || false} /></div>
-                                <div className="w-full h-1/4 px-5 py-3 text-xl">TV's <Switch onCheckedChange={() => handleChange(6)} id="6" checked={filters?.find(f => f.id === 6)?.state || false} /></div>
+                                <div className="w-full h-1/4 px-5 py-3 text-xl">TVs <Switch onCheckedChange={() => handleChange(6)} id="6" checked={filters?.find(f => f.id === 6)?.state || false} /></div>
                                 <div className="w-full h-1/4 px-5 py-3 text-xl">AGD <Switch onCheckedChange={() => handleChange(1)} id="1" checked={filters?.find(f => f.id === 1)?.state || false} /></div>
                                 <div className="w-full h-1/4 px-5 py-3 text-xl">Headphones <Switch onCheckedChange={() => handleChange(2)} id="2" checked={filters?.find(f => f.id === 2)?.state || false} /></div>
                                 <div className="w-full h-1/4 px-5 py-3 text-xl">Smartwatches <Switch onCheckedChange={() => handleChange(5)} id="5" checked={filters?.find(f => f.id === 5)?.state || false} /></div>
