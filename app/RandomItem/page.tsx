@@ -19,21 +19,13 @@ export default function RandomItem() {
     }, [products])
     
     return (
-        <div className="flex-auto h-screen">
-            <div className="flex-row justify-center h-1/13 sticky top-0 bg-white outline">
-                <Navbar />
+        <div className="w-1/2 h-11/13 justify-center place-self-center">
+            <div className="place-self-center text-4xl">Your random item is:</div>
+            {!!randomPickedProduct && 
+            <div className="flex-initial">
+                <ProductCard product={randomPickedProduct} />
             </div>
-            <div className="w-1/2 h-11/13 justify-center place-self-center">
-                <div className="place-self-center text-4xl">Your random item is:</div>
-                {!!randomPickedProduct && 
-                <div className="flex-initial">
-                    <ProductCard product={randomPickedProduct} />
-                </div>
-                }
-            </div>
-            <div className="h-1/13">
-                <Footer />
-            </div>
+            }
         </div>
     );
   }

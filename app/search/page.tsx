@@ -47,10 +47,7 @@ export default function Search() {
     }, [searchParams, categories, products, setSearchedProducts]);
 
     return (
-        <div className="flex-auto h-screen">
-            <div className="flex-row justify-center h-1/13 sticky top-0 bg-white outline">
-                <Navbar />
-            </div>
+        <>
             {searchedProducts && (
                 <div className={`w-1/2 ${searchedProducts.length <= 2 ? 'h-11/13' : ''} justify-center place-self-center`}>
                     {searchedProducts.map((element: Store.Product) => (
@@ -58,9 +55,6 @@ export default function Search() {
                     ))}
                 </div>
             )}
-            <div className="h-1/13">
-                <Footer />
-            </div>
-        </div>
+        </>
     );
 }
