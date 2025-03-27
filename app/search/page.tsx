@@ -16,7 +16,7 @@ export default function Search() {
     const searchParams = useSearchParams();
     const [filter, setFilter] = useState<boolean>(false);
 
-    useEffect(() => {
+    const checkForSearchedProduct = () => {
         if (products) {
             let filteredProducts = [...products];
 
@@ -44,6 +44,10 @@ export default function Search() {
 
             setSearchedProducts(filteredProducts);
         }
+    }
+
+    useEffect(() => {
+        checkForSearchedProduct();
     }, [searchParams, categories, products, setSearchedProducts]);
 
     return (

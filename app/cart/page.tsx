@@ -12,9 +12,9 @@ import { useState } from "react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { useForm } from "react-hook-form"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import ProductCardCheckout from "@/components/ProductCardCheckout";
+import ProductCardCheckout from "@/app/cart/ProductCardCheckout";
 import Store from "@/types/store";
-import Tabsbtn from "@/components/Tabs";
+import Tabsbtn from "@/app/cart/Tabs";
 export default function Cart() {
   const { products } = useContext(GlobalProductsContext);
   const { selectedItems, setSelectedItems } = useContext(CartContentContext);
